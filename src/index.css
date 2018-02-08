@@ -126,3 +126,8 @@ li {
   color: #00b5d6;
   cursor: pointer;
 }
+
+.heart-button {
+  background: transparent;
+  border: none;
+}
