@@ -87,7 +87,7 @@ let tweets = {
     replies: ['26p5pskqi88i58qmza2gid'],
   },
   "nnvkjqoevs8t02lzcc0ky": {
-    id: "nnvkjqoevs8t02lzcc0ky"",
+    id: "nnvkjqoevs8t02lzcc0ky",
     text: "Maybe the real benefit of open source was the friendships we made along the way?",
     author: "tylermcginnis",
     timestamp: 1513043995650,
@@ -184,4 +184,26 @@ let replies = {
     likes: ['tylermcginnis'],
     replyingTo: "6h5ims9iks66d4m7kqizmv"
   },
+}
+
+function generateUID () {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+}
+
+export function _getUsers () {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({...users}), 1000)
+  })
+}
+
+export function _getTweets () {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({...tweets}), 1000)
+  })
+}
+
+export function _getReplies () {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({...replies}), 1000)
+  })
 }
