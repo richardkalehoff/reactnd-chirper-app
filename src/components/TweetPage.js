@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatTweet, formatReply } from '../utils/helpers'
+import Tweet from './Tweet'
 
 class TweetPage extends Component {
   render() {
-    console.log('hsekfjheskjfehskfj', this.props)
+    const { tweet, replies } = this.props
     return (
       <div>
-        Tweet Page
+        <Tweet tweet={tweet} />
+        <h3 className='center'>Replies</h3>
+        <ul>
+          {replies.map((reply) => (
+            <li key={reply.id}>
+              <Tweet tweet={reply} />
+            </li>
+          ))}
+        </ul>
       </div>
     )
   }
