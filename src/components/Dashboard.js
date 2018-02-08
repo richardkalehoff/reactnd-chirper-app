@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { toArray, formatTweet } from '../utils/helpers'
 import Tweet from './Tweet'
 
 class Dashboard extends Component {
@@ -9,9 +8,9 @@ class Dashboard extends Component {
       <div>
         <h3 className='center'>Your Timeline</h3>
         <ul className='dashboard-list'>
-          {this.props.tweets.map((tweet) => (
-            <li key={tweet.id}>
-              <Tweet tweet={tweet} />
+          {this.props.tweetIds.map((id) => (
+            <li key={id}>
+              <Tweet id={id} />
             </li>
           ))}
         </ul>
@@ -20,14 +19,9 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser, tweets, users }) {
+function mapStateToProps ({ tweets }) {
   return {
-    tweets: toArray(tweets)
-      .map((tweet) => formatTweet(
-        tweet,
-        users[tweet.author],
-        authedUser
-      ))
+    tweetIds: Object.keys(tweets)
   }
 }
 

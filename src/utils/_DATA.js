@@ -122,9 +122,6 @@ let tweets = {
     replies: ['xi3ca2jcfvpa0i3t4m7ag', 'r0xu2v1qrxa6ygtvf2rkjw'],
     replyingTo: null,
   },
-}
-
-let replies = {
   "fap8sdxppna8oabnxljzcv": {
     id: "fap8sdxppna8oabnxljzcv",
     author: "tylermcginnis",
@@ -207,6 +204,8 @@ let replies = {
     replies: [],
   },
 }
+
+let replies = {}
 
 function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)

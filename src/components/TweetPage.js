@@ -5,15 +5,16 @@ import Tweet from './Tweet'
 
 class TweetPage extends Component {
   render() {
-    const { tweet, replies } = this.props
+    const { id, replies } = this.props
+
     return (
       <div>
-        <Tweet tweet={tweet} />
-        <h3 className='center'>Replies</h3>
+        <Tweet id={id} />
+        {replies.length !== 0 && <h3 className='center'>Replies</h3>}
         <ul>
-          {replies.map((reply) => (
-            <li key={reply.id}>
-              <Tweet tweet={reply} />
+          {replies.map((replyId) => (
+            <li key={replyId}>
+              <Tweet id={replyId} />
             </li>
           ))}
         </ul>
@@ -22,16 +23,12 @@ class TweetPage extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser, tweets, replies, users }, props) {
+function mapStateToProps ({ authedUser, tweets, users }, props) {
   const { id } = props.match.params
-  const tweet = tweets[id]
 
   return {
-    tweet: formatTweet(tweet, users[tweet.author], authedUser),
-    replies: tweet.replies.map((replyId) => {
-      const reply = replies[replyId]
-      return formatTweet(reply, users[reply.author], authedUser)
-    })
+    id,
+    replies: tweets[id].replies
   }
 }
 
