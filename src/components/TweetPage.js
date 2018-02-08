@@ -28,7 +28,7 @@ function mapStateToProps ({ authedUser, tweets, users }, props) {
 
   return {
     id,
-    replies: tweets[id].replies
+    replies: tweets[id] ? tweets[id].replies : []
   }
 }
 

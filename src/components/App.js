@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Nav from './Nav'
 import Dashboard from './Dashboard'
 import TweetPage from './TweetPage'
+import NewTweet from './NewTweet'
 import LoadingBar from 'react-redux-loading'
 import { handleInitialData } from '../actions/shared'
 
@@ -26,6 +27,7 @@ class App extends Component {
               : <div>
                   <Route path='/' exact component={Dashboard} />
                   <Route path='/tweet/:id' component={TweetPage} />
+                  <Route path='/new' component={NewTweet} />
                 </div>}
           </div>
         </Fragment>

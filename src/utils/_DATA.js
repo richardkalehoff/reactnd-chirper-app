@@ -27,7 +27,7 @@ let tweets = {
     id: "8xf0y6ziyjabvozdd253nd",
     text: "Shoutout to all the speakers I know for whom English is not a first language, but can STILL explain a concept well. It's hard enough to give a good talk in your mother tongue!",
     author: "sarah_edo",
-    timestamp: 151798885709,
+    timestamp: 1518122597860,
     likes: ['tylermcginnis'],
     replies: ['fap8sdxppna8oabnxljzcv', '3km0v4hf1ps92ajf4z2ytg'],
     replyingTo: null,
@@ -126,7 +126,7 @@ let tweets = {
     id: "fap8sdxppna8oabnxljzcv",
     author: "tylermcginnis",
     text: "I agree. I'm always really impressed when I see someone giving a talk in a language that's not their own.",
-    timestamp: 151798985709,
+    timestamp: 1518122677860,
     likes: ['sarah_edo'],
     replyingTo: "8xf0y6ziyjabvozdd253nd",
     replies: [],
@@ -135,7 +135,7 @@ let tweets = {
     id: "3km0v4hf1ps92ajf4z2ytg",
     author: "dan_abramov",
     text: "It can be difficult at times.",
-    timestamp: 151798895709,
+    timestamp: 1518122667860,
     likes: [],
     replyingTo: "8xf0y6ziyjabvozdd253nd",
     replies: [],
@@ -180,7 +180,7 @@ let tweets = {
     id: "26p5pskqi88i58qmza2gid",
     author: "tylermcginnis",
     text: "Too relatable",
-    timestamp: 0,
+    timestamp: 1514044994650,
     likes: ['sarah_edo'],
     replyingTo: "2mb6re13q842wu8n106bhk",
     replies: [],
@@ -189,7 +189,7 @@ let tweets = {
     id: "xi3ca2jcfvpa0i3t4m7ag",
     author: "tylermcginnis",
     text: "Just DMd you!",
-    timestamp: 1510044195650,
+    timestamp: 1510043995650,
     likes: [],
     replyingTo: "6h5ims9iks66d4m7kqizmv",
     replies: [],
@@ -205,12 +205,6 @@ let tweets = {
   },
 }
 
-let replies = {}
-
-function generateUID () {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-}
-
 export function _getUsers () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...users}), 1000)
@@ -220,12 +214,6 @@ export function _getUsers () {
 export function _getTweets () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...tweets}), 1000)
-  })
-}
-
-export function _getReplies () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...replies}), 1000)
   })
 }
 
@@ -244,5 +232,39 @@ export function _saveLikeToggle ({ id, hasLiked, authedUser }) {
 
       res()
     }, 500)
+  })
+}
+
+function generateUID () {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+}
+
+function formatTweet ({ author, text }) {
+  return {
+    author,
+    id: generateUID(),
+    likes: [],
+    replies: [],
+    text,
+    timestamp: Date.now(),
+    replyingTo: null // todo
+  }
+}
+
+export function _saveTweet (tweet) {
+  return new Promise((res, rej) => {
+    const formattedTweet = formatTweet({
+      text: tweet.text,
+      author: tweet.authedUser,
+    })
+
+    setTimeout(() => {
+      tweets = {
+        ...tweets,
+        [formattedTweet.id]: formattedTweet,
+      }
+
+      res(formattedTweet)
+    }, 1000)
   })
 }

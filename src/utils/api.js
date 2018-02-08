@@ -1,8 +1,8 @@
 import {
   _getUsers,
   _getTweets,
-  _getReplies,
   _saveLikeToggle,
+  _saveTweet,
 } from './_DATA.js'
 
 function formatUsers (users) {
@@ -25,4 +25,8 @@ export function getInitialData () {
 
 export function saveLikeToggle (info) {
   return _saveLikeToggle(info)
+}
+
+export function saveTweet (info) {
+  return _saveTweet(info)
 }
