@@ -264,6 +264,14 @@ export function _saveTweet (tweet) {
         [formattedTweet.id]: formattedTweet,
       }
 
+      users = {
+        ...users,
+        [tweet.authedUser]: {
+          ...users[tweet.authedUser],
+          tweets: users[tweet.authedUser].tweets.concat([formattedTweet.id])
+        }
+      }
+
       res(formattedTweet)
     }, 1000)
   })
