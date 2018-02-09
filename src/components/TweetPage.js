@@ -28,9 +28,6 @@ class TweetPage extends Component {
 function mapStateToProps ({ authedUser, tweets, users }, props) {
   const { id } = props.match.params
 
-    tweetIds: Object.keys(tweets)
-      .sort((a,b) => tweets[b].timestamp - tweets[a].timestamp)
-
   return {
     id,
     replies: !tweets[id]

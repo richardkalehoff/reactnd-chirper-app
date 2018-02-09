@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddTweet } from '../actions/tweets'
-
-import { withRouter } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class NewTweet extends Component {
   state = {
-    text: ''
+    text: '',
+    toHome: false
   }
   handleChange = (e) => {
     const text = e.target.value
@@ -19,20 +19,22 @@ class NewTweet extends Component {
     e.preventDefault()
 
     const { text } = this.state
-    const { dispatch, history, id } = this.props
-
-    this.setState(() => ({
-      text: ''
-    }))
+    const { dispatch, id } = this.props
 
     dispatch(handleAddTweet(text, id))
 
-    if (id === null) {
-      history.push('/')
-    }
+    this.setState(() => ({
+      text: '',
+      toHome: id ? false : true,
+    }))
   }
   render() {
-    const { text } = this.state
+    const { text, toHome } = this.state
+
+    if (toHome === true) {
+      return <Redirect to='/' />
+    }
+
     const tweetLeft = 280 - text.length
 
     return (
@@ -63,4 +65,4 @@ class NewTweet extends Component {
   }
 }
 
-export default withRouter(connect()(NewTweet))
+export default connect()(NewTweet)
