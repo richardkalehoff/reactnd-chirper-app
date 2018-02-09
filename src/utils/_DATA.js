@@ -239,7 +239,7 @@ function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
-function formatTweet ({ author, text }) {
+function formatTweet ({ author, text, replyingTo }) {
   return {
     author,
     id: generateUID(),
@@ -247,15 +247,16 @@ function formatTweet ({ author, text }) {
     replies: [],
     text,
     timestamp: Date.now(),
-    replyingTo: null // todo
+    replyingTo,
   }
 }
 
-export function _saveTweet (tweet) {
+export function _saveTweet ({ text, author, replyingTo }) {
   return new Promise((res, rej) => {
     const formattedTweet = formatTweet({
-      text: tweet.text,
-      author: tweet.authedUser,
+      text,
+      author,
+      replyingTo
     })
 
     setTimeout(() => {
@@ -266,9 +267,9 @@ export function _saveTweet (tweet) {
 
       users = {
         ...users,
-        [tweet.authedUser]: {
-          ...users[tweet.authedUser],
-          tweets: users[tweet.authedUser].tweets.concat([formattedTweet.id])
+        [author]: {
+          ...users[author],
+          tweets: users[author].tweets.concat([formattedTweet.id])
         }
       }
 

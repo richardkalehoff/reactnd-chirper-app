@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddTweet } from '../actions/tweets'
 
+import { withRouter } from 'react-router-dom'
+
 class NewTweet extends Component {
   state = {
     text: ''
@@ -13,10 +15,21 @@ class NewTweet extends Component {
       text
     }))
   }
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault()
+
     const { text } = this.state
-    this.props.history.push('/')
-    this.props.dispatch(handleAddTweet(text))
+    const { dispatch, history, id } = this.props
+
+    this.setState(() => ({
+      text: ''
+    }))
+
+    dispatch(handleAddTweet(text, id))
+
+    if (id === null) {
+      history.push('/')
+    }
   }
   render() {
     const { text } = this.state
@@ -50,4 +63,4 @@ class NewTweet extends Component {
   }
 }
 
-export default connect()(NewTweet)
+export default withRouter(connect()(NewTweet))

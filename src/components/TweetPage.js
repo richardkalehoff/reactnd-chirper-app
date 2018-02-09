@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatTweet, formatReply } from '../utils/helpers'
 import Tweet from './Tweet'
+import NewTweet from './NewTweet'
 
 class TweetPage extends Component {
   render() {
@@ -10,6 +11,7 @@ class TweetPage extends Component {
     return (
       <div>
         <Tweet id={id} />
+        {id && <NewTweet id={id} />}
         {replies.length !== 0 && <h3 className='center'>Replies</h3>}
         <ul>
           {replies.map((replyId) => (
@@ -26,9 +28,14 @@ class TweetPage extends Component {
 function mapStateToProps ({ authedUser, tweets, users }, props) {
   const { id } = props.match.params
 
+    tweetIds: Object.keys(tweets)
+      .sort((a,b) => tweets[b].timestamp - tweets[a].timestamp)
+
   return {
     id,
-    replies: tweets[id] ? tweets[id].replies : []
+    replies: !tweets[id]
+      ? []
+      : tweets[id].replies.sort((a,b) => tweets[b].timestamp - tweets[a].timestamp)
   }
 }
 

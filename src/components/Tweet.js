@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline'
 import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
@@ -19,6 +20,10 @@ class Tweet extends Component {
       authedUser
     }))
   }
+  toParent = (e,id) => {
+    e.preventDefault()
+    this.props.history.push(`/tweet/${id}`)
+  }
   render() {
     const { tweet } = this.props
 
@@ -27,7 +32,7 @@ class Tweet extends Component {
     }
 
     const {
-      name, avatar, timestamp, author, text, hasLiked, likes, replies, id
+      name, avatar, timestamp, author, text, hasLiked, likes, replies, id, parent
     } = tweet
 
     return (
@@ -42,6 +47,11 @@ class Tweet extends Component {
             <span>{name}</span>
             <span>{author}</span>
             <div>{formatDate(timestamp)}</div>
+            {parent && (
+              <button className='replying-to' onClick={(e) => this.toParent(e,parent.id)}>
+                Replying to @{parent.author}
+              </button>
+            )}
             <p>{text}</p>
           </div>
           <div className='tweet-icons'>
@@ -62,13 +72,14 @@ class Tweet extends Component {
 
 function mapStateToProps ({ authedUser, users, tweets }, { id }) {
   const tweet = tweets[id]
+  const parentTweet = tweet ? tweets[tweet.replyingTo] : null
 
   return {
     authedUser,
     tweet: tweet
-      ? formatTweet(tweet, users[tweet.author], authedUser)
+      ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)
       : null
   }
 }
 
-export default connect(mapStateToProps)(Tweet)
+export default withRouter(connect(mapStateToProps)(Tweet))

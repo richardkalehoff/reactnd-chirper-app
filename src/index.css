@@ -126,6 +126,14 @@ li {
   color: #00b5d6;
   cursor: pointer;
 }
+.replying-to {
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  color: #969696;
+  cursor: pointer;
+}
 
 .heart-button {
   background: transparent;
