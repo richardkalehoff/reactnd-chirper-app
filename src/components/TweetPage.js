@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { formatTweet, formatReply } from '../utils/helpers'
 import Tweet from './Tweet'
 import NewTweet from './NewTweet'
 
