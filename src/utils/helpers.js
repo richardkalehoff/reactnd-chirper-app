@@ -1,8 +1,3 @@
-export function toArray (obj) {
-  return Object.keys(obj)
-    .map((key) => obj[key])
-}
-
 export function formatDate (timestamp) {
   const d = new Date(timestamp)
   const time = d.toLocaleTimeString('en-US')

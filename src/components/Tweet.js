@@ -10,9 +10,9 @@ import { handleToggleTweet } from '../actions/tweets'
 
 class Tweet extends Component {
   handleLike = (e) => {
-    const { dispatch, tweet, authedUser } = this.props
-
     e.preventDefault()
+
+    const { dispatch, tweet, authedUser } = this.props
 
     dispatch(handleToggleTweet({
       id: tweet.id,
@@ -20,7 +20,7 @@ class Tweet extends Component {
       authedUser
     }))
   }
-  toParent = (e,id) => {
+  toParent = (e, id) => {
     e.preventDefault()
     this.props.history.push(`/tweet/${id}`)
   }
