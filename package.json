@@ -1,6 +1,7 @@
 {
   "name": "redux-twitter",
   "version": "0.1.0",
+  "homepage" : "https://tylermcginnis.com/projects/redux-twitter/",
   "private": true,
   "dependencies": {
     "react": "^16.2.0",
